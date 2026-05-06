@@ -70,7 +70,7 @@
             transition: all 0.5s ease;
         }
 
-        /* 像素圖案外容器：改用 Grid 佈局，強制內部元素絕對物理置中 */
+        /* 像素圖案外容器：Grid 佈局，強制內部元素絕對物理置中 */
         .pixel-art-container {
             width: 100%;
             height: 160px; /* 縮減多餘高度，讓版面在手機上更精緻貼合 */
@@ -111,7 +111,7 @@
             image-rendering: pixelated;
             image-rendering: crisp-edges;
 
-            /* 15 col x 13 row 像素坐標繪製系統（將原本偏位修正直接寫入 box-shadow 的物理中心點） */
+            /* 15 col x 13 row 像素坐標繪製系統 */
             box-shadow: 
                 /* Row 1 */
                 -24px -48px var(--heart-border), -16px -48px var(--heart-border), -8px -48px var(--heart-border),
@@ -381,22 +381,22 @@
 </div>
 
 <script>
-    // 31則智慧語錄數據
+    // 31則經精密中文斷句優化後的智慧語錄數據
     const quotes = [
         { 
-            ch: "氣是人生命的根源，<br>人體健康的根本。", 
+            ch: "氣是人生命的根源，<br>也是人體健康的根本。", 
             en: "Qi is the source of life<br>and the foundation of health." 
         },
         { 
-            ch: "看看鏡中的自己，<br>多對自己微笑打氣，<br>告訴自己加油。", 
+            ch: "看看鏡中的自己，<br>多對自己微笑打氣，<br>告訴自己：加油！", 
             en: "Look in the mirror, smile, cheer yourself on,<br>and say to yourself, \"You've got this!<br>Go for it!\"" 
         },
         { 
-            ch: "每天告訴自己：我是健康的、<br>快樂的、美麗的、有自信的。", 
+            ch: "每天告訴自己：<br>我是健康的、快樂的、<br>美麗的、有自信的。", 
             en: "Every day, tell yourself:<br>I am healthy, happy, beautiful,<br>and confident." 
         },
         { 
-            ch: "要真正的去改變自己的一切，<br>這一切就是一個「圓」與「緣」。", 
+            ch: "要真正的去改變自己一切，<br>這一切就是一個「圓」與「緣」。", 
             en: "Let us transform ourselves fully and authentically,<br>it's about \"wholeness\" and the invisible bonds<br>that connect us all." 
         },
         { 
@@ -416,43 +416,43 @@
             en: "Focus on what you can change,<br>let go of what you cannot, and give your all,<br>do your best!" 
         },
         { 
-            ch: "感謝逆境，給予砥礪自己的機會，<br>只要不放棄，就可看出自己的潛能。", 
+            ch: "感謝逆境，<br>給予砥礪自己的機會，<br>只要不放棄，就可看出潛能。", 
             en: "Let us be grateful for adversity, it sharpens us.<br>As long as we don't give up,<br>we can unlock our true potential." 
         },
         { 
-            ch: "生活有高低起伏，不會事事皆如己意，<br>這是考驗也是磨練，<br>在過程中看見自己、改變自己。", 
+            ch: "生活有高低起伏，<br>不會事事皆如己意，<br>這是考驗，也是磨練，<br>在過程中看見、改變自己。", 
             en: "Life has its ups and downs;<br>things won't always go our way.<br>Challenges test and refine us, revealing<br>who we are and driving our growth." 
         },
         { 
-            ch: "找到自己最害怕的弱點，勇敢面對，<br>再大的困難，若心有意則無難。", 
+            ch: "找到自己最害怕的弱點，<br>勇敢面對；<br>再大的困難，心有意則無難。", 
             en: "Let us face our greatest fears and weaknesses<br>with courage. With strong determination,<br>no challenge is insurmountable." 
         },
         { 
-            ch: "對的事情，每日一點一滴的累積，<br>信心、耐心與恆心，終能開花結果。", 
+            ch: "對的事情，每日一點一滴累積，<br>信心、耐心與恆心，<br>終能開花結果。", 
             en: "Let us do what is right every day<br>and let it accumulate over time.<br>With confidence, patience, and perseverance,<br>our efforts will eventually bear fruit." 
         },
         { 
-            ch: "人赤裸裸來到世界，赤裸裸地走。<br>一個人最重要的向內求，<br>認識自己，了解自己。", 
+            ch: "人赤裸裸來到世界，<br>亦赤裸裸地走。<br>一個人最重要的向內求，<br>認識自己，了解自己。", 
             en: "We enter the world bare and leave bare.<br>The most important journey is the inward one,<br>to know and understand ourselves." 
         },
         { 
-            ch: "逆境讓我們不凡，<br>人生中的變化讓我們學會<br>接受、寬容、彈性。", 
+            ch: "逆境讓我們不凡，<br>人生中的變化讓我們學會<br>接受、寬容與彈性。", 
             en: "Adversity makes us extraordinary.<br>Life's changes teach us acceptance,<br>tolerance, and flexibility." 
         },
         { 
-            ch: "壓力是毒藥，<br>由心而生的歡喜、自然與感恩<br>就是解藥。", 
+            ch: "壓力是毒藥，<br>由心而生的歡喜、<br>自然與感恩，就是解藥。", 
             en: "Pressure is poison, while joy, naturalness,<br>and gratitude that come from our hearts<br>are the antidote." 
         },
         { 
-            ch: "跟自己和解，平息內心的戰火，<br>在和平的狀態中，才有往前的正能量。", 
+            ch: "跟自己和解，平息內心戰火，<br>在和平的狀態中，<br>才有往前的正能量。", 
             en: "Let us make peace with ourselves<br>and extinguish inner conflict.<br>When at peace, we gain the positive energy<br>to move forward." 
         },
         { 
-            ch: "人生舞台變化無窮，<br>只有吃苦做最沒有自信的事，<br>徹底執行才會成功。", 
+            ch: "人生舞台變化無窮，<br>只有吃苦做最沒自信的事，<br>徹底執行，才會成功。", 
             en: "Life's stage is ever-changing.<br>True success comes from taking on the tasks<br>we feel least confident about and seeing them through<br>to completion with full commitment." 
         },
         { 
-            ch: "人的一生中能為自己做的機會有限，<br>把握每一次當下，勇敢面對自己，<br>省悟自己、改進自己。", 
+            ch: "人生中能為自己努力的機會有限，<br>把握當下，勇敢面對自己，<br>省悟自己、改進自己。", 
             en: "Opportunities to truly do things for oneself<br>are limited in life. Seize each one to face<br>yourself courageously, reflect deeply,<br>and improve yourself." 
         },
         { 
@@ -464,7 +464,7 @@
             en: "The heart has its own life.<br>Look on the bright side of things, think positively,<br>and speak kindly to strengthen the resilience<br>of your hearts and souls." 
         },
         { 
-            ch: "人生在世，遇到的人與事，都是緣分，<br>如何面對這個緣分，是你的選擇。", 
+            ch: "人生在世，遇到的所有人事，<br>都是緣分；<br>如何面對緣分，是你的選擇。", 
             en: "Everyone and everything we meet in life<br>is not a coincidence, how we respond<br>is our choice." 
         },
         { 
@@ -472,27 +472,27 @@
             en: "There are all kinds of people in the world,<br>they help us grow and are transient<br>in our lives." 
         },
         { 
-            ch: "人與人之間的相處，和氣，<br>自然會順利。", 
+            ch: "人與人之間的相處，<br>保持和氣，自然會順利。", 
             en: "When interactions are harmonious,<br>relationships naturally flow with ease<br>and vitality." 
         },
         { 
-            ch: "練一份處變不驚的平靜態度，<br>遇事不要慌張，沉著以對，方可保平安。", 
+            ch: "練一份處變不驚的平靜態度，<br>遇事沉著以對，不要慌張，<br>方可保平安。", 
             en: "Let us cultivate calmness amid life's changes,<br>meeting each challenge with composure<br>to uphold safety and peace." 
         },
         { 
-            ch: "人生苦短，轉瞬即逝，無常即是常，<br>惜取眼前人，以善心正念對待。", 
+            ch: "生命苦短，無常即是常，<br>惜取眼前人，<br>以善心正念對待。", 
             en: "Life is short, challenging and fleeting,<br>and impermanence is ever-present.<br>Let us cherish those around us, embracing them<br>with kindness and a heart full of positive thoughts." 
         },
         { 
-            ch: "不問前塵往事，只問自己：<br>當下、今後，要如何向善、向好。", 
+            ch: "不問前塵往事，只問自己：<br>當下、今後，<br>要如何向善、向好。", 
             en: "Release the past, focus on the present<br>and the future, live virtuously,<br>and keep bettering yourself." 
         },
         { 
-            ch: "保持安靜與判斷是非的能力，<br>有善良的心，也要懂得防範惡的人事物。", 
+            ch: "保持安靜與判斷是非的能力，<br>有善良的心，<br>也要懂得防範惡的人事物。", 
             en: "Stay calm and cultivate the ability to distinguish<br>between right and wrong. Keep a kind heart,<br>but remain vigilant of harmful people,<br>things and situations." 
         },
         { 
-            ch: "讓自己維持恆定能量與前進的步調，<br>保有適度的彈性。", 
+            ch: "讓自己維持恆定能量，<br>以及前進的步調，<br>並保有適度的彈性。", 
             en: "Keep your energy steady and continue<br>moving forward, while maintaining flexibility." 
         },
         { 
@@ -500,11 +500,11 @@
             en: "Let us guard our qi to remain calm and at ease,<br>guard our hearts to stay serene, safe, and peaceful,<br>guard our bodies to maintain good health,<br>and guard our actions and words." 
         },
         { 
-            ch: "肯定自己生而為人的價值，重視自己，<br>發揮天賦專長，完成使命。", 
+            ch: "肯定自己生而為人的價值，<br>重視自己，發揮天賦專長，<br>完成使命。", 
             en: "Let us affirm our worth as human beings,<br>respect ourselves, cultivate our innate gifts<br>and skills, and fulfill the missions of our lives." 
         },
         { 
-            ch: "修行人讓境由心生，能夠內觀自在，<br>越能享有心的自由。", 
+            ch: "修行人讓境由心生，<br>能夠內觀自在，<br>越能享有心的自由。", 
             en: "Self-cultivation practitioners allow their state of mind<br>to shape their perception of the world. The more they<br>observe within and cultivate inner peace,<br>the more they experience true inner freedom." 
         }
     ];
