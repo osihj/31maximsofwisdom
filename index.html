@@ -13,7 +13,7 @@
             --text-color: #333333;
             --accent-color: #bfa38a;
             
-            /* 更新後的微縮像素愛心配色 */
+            /* 微縮像素愛心配色 */
             --heart-border: #6d7993;  /* 外框：深藍灰色 */
             --heart-fill: #d36a72;    /* 填充：質感頁面紅色系 */
             --heart-white: #ffffff;   /* 高光：純白色 */
@@ -79,27 +79,36 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            transform: scale(1);
-            transition: transform 4s ease-in-out;
         }
 
-        /* 呼吸動畫 */
+        /* 呼吸動畫 - 結合基礎放大3倍比例並確保置中 */
         .breathing {
             animation: breathe 8s infinite ease-in-out;
         }
 
         @keyframes breathe {
-            0%, 100% { transform: scale(0.85); opacity: 0.85; }
-            50% { transform: scale(1.1); opacity: 1; }
+            0%, 100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0.85; }
+            50% { transform: translate(-50%, -50%) scale(3.3); opacity: 1; }
         }
 
-        /* 微縮精緻版像素愛心 (基礎格點由 16px 縮小至 8px，維持 15x13 經典結構) */
+        /* 微縮精緻版像素愛心 - 單個像素維持 8px，並透過 scale(3) 放大三倍比例且完美置中 */
         .pixel-heart {
-            position: relative;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* 基礎縮放 3 倍，外加 X/Y 軸微調確保圖形絕對置中 */
+            transform: translate(-50%, -50%) scale(3);
+            transform-origin: center center;
+            
             width: 8px;
             height: 8px;
             background: transparent;
-            /* 15 col x 13 row 像素坐標繪製系統 */
+            
+            /* 防止瀏覽器在縮放像素時變模糊 */
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+
+            /* 15 col x 13 row 像素坐標繪製系統 (基礎 8px 坐標不變) */
             box-shadow: 
                 /* Row 1 */
                 -24px -48px var(--heart-border), -16px -48px var(--heart-border), -8px -48px var(--heart-border),
@@ -139,6 +148,8 @@
                 -8px 40px var(--heart-border), 0px 40px var(--heart-fill), 8px 40px var(--heart-border),
                 /* Row 13 */
                 0px 48px var(--heart-border);
+            
+            transition: transform 0.3s ease, filter 0.5s ease;
         }
 
         /* 靜心完成後：愛心主體變更為網頁主色（深藍灰色），並釋放柔和光芒 */
@@ -509,7 +520,7 @@
     // 啟動靜心儀式
     function startRitual() {
         startBtn.style.display = 'none';
-        pixelContainer.classList.add('breathing');
+        pixelHeart.classList.add('breathing'); // 讓心形套用含有置中與縮放的呼吸動畫
         
         let seconds = 10;
         instruction.innerHTML = `閉上雙眼，深呼吸...<br>(還剩 ${seconds} 秒)`;
@@ -522,7 +533,7 @@
                 instruction.innerHTML = `慢慢呼氣，放下塵世雜念...<br>(還剩 ${seconds} 秒)`;
             } else {
                 clearInterval(countdown);
-                pixelContainer.classList.remove('breathing');
+                pixelHeart.classList.remove('breathing');
                 pixelHeart.classList.add('enlightened'); // 靜心完主體轉為深藍灰亮起
                 instruction.innerHTML = "心靈已歸於平靜，<br>請抽取今天的智慧指引。";
                 drawBtn.style.display = 'inline-block';
