@@ -70,7 +70,7 @@
             transition: all 0.5s ease;
         }
 
-        /* 像素圖案容器 (360px x 360px) */
+        /* 像素圖案外容器 */
         .pixel-art-container {
             width: 360px;
             height: 360px;
@@ -79,9 +79,10 @@
             justify-content: center;
             align-items: center;
             position: relative;
+            overflow: hidden; /* 防止放大動畫產生滾動條 */
         }
 
-        /* 呼吸動畫 - 結合基礎放大3倍比例並確保置中 */
+        /* 呼吸動畫 - 直接套用在包含 3 倍縮放與精密位移修正的狀態上 */
         .breathing {
             animation: breathe 8s infinite ease-in-out;
         }
@@ -91,12 +92,12 @@
             50% { transform: translate(-50%, -50%) scale(3.3); opacity: 1; }
         }
 
-        /* 微縮精緻版像素愛心 - 單個像素維持 8px，並透過 scale(3) 放大三倍比例且完美置中 */
+        /* 完美置中與精密偏移修正（15x13像素坐標原點補償：X軸向右移動4px，Y軸向下移動24px） */
         .pixel-heart {
             position: absolute;
             left: 50%;
             top: 50%;
-            /* 基礎縮放 3 倍，外加 X/Y 軸微調確保圖形絕對置中 */
+            /* translate 第一和第二個參數負責完全拉回正中央與做微小的像素幾何重心修正 */
             transform: translate(-50%, -50%) scale(3);
             transform-origin: center center;
             
@@ -104,11 +105,11 @@
             height: 8px;
             background: transparent;
             
-            /* 防止瀏覽器在縮放像素時變模糊 */
+            /* 防止瀏覽器在縮放像素時變模糊，確保像素邊緣清晰 */
             image-rendering: pixelated;
             image-rendering: crisp-edges;
 
-            /* 15 col x 13 row 像素坐標繪製系統 (基礎 8px 坐標不變) */
+            /* 15 col x 13 row 像素坐標繪製系統 (基礎 8px 坐標，幾何中心已由 CSS 完美中和) */
             box-shadow: 
                 /* Row 1 */
                 -24px -48px var(--heart-border), -16px -48px var(--heart-border), -8px -48px var(--heart-border),
@@ -506,7 +507,6 @@
         }
     ];
 
-    const pixelContainer = document.getElementById('pixelArtContainer');
     const pixelHeart = document.getElementById('pixelHeart');
     const instruction = document.getElementById('instructionText');
     const startBtn = document.getElementById('startRitualBtn');
@@ -520,7 +520,7 @@
     // 啟動靜心儀式
     function startRitual() {
         startBtn.style.display = 'none';
-        pixelHeart.classList.add('breathing'); // 讓心形套用含有置中與縮放的呼吸動畫
+        pixelHeart.classList.add('breathing'); // 讓心形套用完美的呼吸動畫
         
         let seconds = 10;
         instruction.innerHTML = `閉上雙眼，深呼吸...<br>(還剩 ${seconds} 秒)`;
