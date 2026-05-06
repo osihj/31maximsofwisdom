@@ -1,67 +1,574 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2299.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>每日智慧語錄 Maxims of Wisdom</title>
+    <style>
+        :root {
+            --primary-color: #6d7993;
+            --secondary-color: #9099a8;
+            --bg-color: #f4f3f0;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --accent-color: #bfa38a;
+            
+            /* 更新後的微縮像素愛心配色 */
+            --heart-border: #6d7993;  /* 外框：深藍灰色 */
+            --heart-fill: #d36a72;    /* 填充：質感頁面紅色系 */
+            --heart-white: #ffffff;   /* 高光：純白色 */
+        }
+
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: radial-gradient(rgba(191, 163, 138, 0.1) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px; /* 完美寬幅 */
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        header h1 {
+            font-weight: 500;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-size: 1.7rem;
+        }
+
+        /* 中間標示：分行顯示 */
+        .header-sub {
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-top: 0;
+            margin-bottom: 25px;
+            letter-spacing: 3px;
+            font-weight: 400;
+        }
+
+        /* 靜心儀式區 */
+        .ritual-container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 35px 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            transition: all 0.5s ease;
+        }
+
+        /* 像素圖案容器 (360px x 360px) */
+        .pixel-art-container {
+            width: 360px;
+            height: 360px;
+            margin: 0 auto 25px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            transform: scale(1);
+            transition: transform 4s ease-in-out;
+        }
+
+        /* 呼吸動畫 */
+        .breathing {
+            animation: breathe 8s infinite ease-in-out;
+        }
+
+        @keyframes breathe {
+            0%, 100% { transform: scale(0.85); opacity: 0.85; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* 微縮精緻版像素愛心 (基礎格點由 16px 縮小至 8px，維持 15x13 經典結構) */
+        .pixel-heart {
+            position: relative;
+            width: 8px;
+            height: 8px;
+            background: transparent;
+            /* 15 col x 13 row 像素坐標繪製系統 */
+            box-shadow: 
+                /* Row 1 */
+                -24px -48px var(--heart-border), -16px -48px var(--heart-border), -8px -48px var(--heart-border),
+                8px -48px var(--heart-border), 16px -48px var(--heart-border), 24px -48px var(--heart-border),
+                /* Row 2 */
+                -32px -40px var(--heart-border), -24px -40px var(--heart-fill), -16px -40px var(--heart-fill), -8px -40px var(--heart-fill),
+                0px -40px var(--heart-border),
+                8px -40px var(--heart-fill), 16px -40px var(--heart-fill), 24px -40px var(--heart-fill), 32px -40px var(--heart-border),
+                /* Row 3 */
+                -40px -32px var(--heart-border), -32px -32px var(--heart-fill), -24px -32px var(--heart-fill), -16px -32px var(--heart-fill), -8px -32px var(--heart-fill),
+                0px -32px var(--heart-fill), 8px -32px var(--heart-fill), 16px -32px var(--heart-fill), 24px -32px var(--heart-fill), 32px -32px var(--heart-fill), 40px -32px var(--heart-border),
+                /* Row 4 (高光點 1) */
+                -48px -24px var(--heart-border), -40px -24px var(--heart-fill), -32px -24px var(--heart-white), -24px -24px var(--heart-fill), -16px -24px var(--heart-fill), -8px -24px var(--heart-fill),
+                0px -24px var(--heart-fill), 8px -24px var(--heart-fill), 16px -24px var(--heart-fill), 24px -24px var(--heart-fill), 32px -24px var(--heart-fill), 40px -24px var(--heart-fill), 48px -24px var(--heart-border),
+                /* Row 5 (高光點 2) */
+                -48px -16px var(--heart-border), -40px -16px var(--heart-fill), -32px -16px var(--heart-fill), -24px -16px var(--heart-white), -16px -16px var(--heart-fill), -8px -16px var(--heart-fill),
+                0px -16px var(--heart-fill), 8px -16px var(--heart-fill), 16px -16px var(--heart-fill), 24px -16px var(--heart-fill), 32px -16px var(--heart-fill), 40px -16px var(--heart-fill), 48px -16px var(--heart-border),
+                /* Row 6 */
+                -48px -8px var(--heart-border), -40px -8px var(--heart-fill), -32px -8px var(--heart-fill), -24px -8px var(--heart-fill), -16px -8px var(--heart-fill), -8px -8px var(--heart-fill),
+                0px -8px var(--heart-fill), 8px -8px var(--heart-fill), 16px -8px var(--heart-fill), 24px -8px var(--heart-fill), 32px -8px var(--heart-fill), 40px -8px var(--heart-fill), 48px -8px var(--heart-border),
+                /* Row 7 */
+                -48px 0px var(--heart-border), -40px 0px var(--heart-fill), -32px 0px var(--heart-fill), -24px 0px var(--heart-fill), -16px 0px var(--heart-fill), -8px 0px var(--heart-fill),
+                0px 0px var(--heart-fill), 8px 0px var(--heart-fill), 16px 0px var(--heart-fill), 24px 0px var(--heart-fill), 32px 0px var(--heart-fill), 40px 0px var(--heart-fill), 48px 0px var(--heart-border),
+                /* Row 8 */
+                -40px 8px var(--heart-border), -32px 8px var(--heart-fill), -24px 8px var(--heart-fill), -16px 8px var(--heart-fill), -8px 8px var(--heart-fill),
+                0px 8px var(--heart-fill), 8px 8px var(--heart-fill), 16px 8px var(--heart-fill), 24px 8px var(--heart-fill), 32px 8px var(--heart-fill), 40px 8px var(--heart-border),
+                /* Row 9 */
+                -32px 16px var(--heart-border), -24px 16px var(--heart-fill), -16px 16px var(--heart-fill), -8px 16px var(--heart-fill),
+                0px 16px var(--heart-fill), 8px 16px var(--heart-fill), 16px 16px var(--heart-fill), 24px 16px var(--heart-fill), 32px 16px var(--heart-border),
+                /* Row 10 */
+                -24px 24px var(--heart-border), -16px 24px var(--heart-fill), -8px 24px var(--heart-fill),
+                0px 24px var(--heart-fill), 8px 24px var(--heart-fill), 16px 24px var(--heart-fill), 24px 24px var(--heart-border),
+                /* Row 11 */
+                -16px 32px var(--heart-border), -8px 32px var(--heart-fill),
+                0px 32px var(--heart-fill), 8px 32px var(--heart-fill), 16px 32px var(--heart-border),
+                /* Row 12 */
+                -8px 40px var(--heart-border), 0px 40px var(--heart-fill), 8px 40px var(--heart-border),
+                /* Row 13 */
+                0px 48px var(--heart-border);
+        }
+
+        /* 靜心完成後：愛心主體變更為網頁主色（深藍灰色），並釋放柔和光芒 */
+        .pixel-heart.enlightened {
+            --heart-fill: var(--primary-color);
+            filter: drop-shadow(0 0 15px rgba(109, 121, 147, 0.6));
+        }
+
+        .ritual-btn, .draw-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 35px;
+            font-size: 1rem;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(109, 121, 147, 0.2);
+        }
+
+        .ritual-btn:hover, .draw-btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(191, 163, 138, 0.3);
+        }
+
+        .instruction-text {
+            font-size: 1.05rem;
+            margin-bottom: 25px;
+            color: #555;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.5;
+        }
+
+        /* 籤卡樣式 */
+        .card-container {
+            perspective: 1000px;
+            display: none;
+            margin-top: 15px;
+        }
+
+        .card {
+            width: 100%;
+            min-height: 350px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-sizing: border-box;
+            padding: 30px 24px;
+        }
+
+        .card-front {
+            background-color: var(--primary-color);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-front-inner {
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-front h3 {
+            font-weight: 300;
+            letter-spacing: 5px;
+            margin: 0;
+            font-size: 1.4rem;
+        }
+
+        .card-front p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 10px;
+        }
+
+        .card-back {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            transform: rotateY(180deg);
+            border-left: 5px solid var(--accent-color);
+            justify-content: space-between;
+        }
+
+        .quote-ch {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 18px;
+            word-break: break-all;
+        }
+
+        .quote-en {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: #7f8c8d;
+            font-style: italic;
+            word-break: break-word;
+        }
+
+        .card-footer {
+            font-size: 0.78rem;
+            color: var(--secondary-color);
+            margin-top: 15px;
+            border-top: 1px dashed #eee;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        /* 結尾祝福文字 */
+        .blessing-text {
+            display: none;
+            font-size: 1.1rem;
+            color: #bfa38a;
+            margin-top: 25px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            line-height: 1.6;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: none;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+            box-shadow: none;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(0,0,0,0.02);
+            color: var(--text-color);
+            border-color: var(--text-color);
+            box-shadow: none;
+        }
+    </style>
 </head>
 <body>
-<p class="p1">import { useMemo } from "react";</p>
-<p class="p1">import AppHeader from "@/components/AppHeader";</p>
-<p class="p1">import GreetingCard from "@/components/GreetingCard";</p>
-<p class="p1">import WeeklySummary from "@/components/WeeklySummary";</p>
-<p class="p1">import HabitTracker from "@/components/HabitTracker";</p>
-<p class="p1">import CheckInButton from "@/components/CheckInButton";</p>
-<p class="p1">import BottomNav from "@/components/BottomNav";</p>
-<p class="p1">import { toast } from "sonner";</p>
-<p class="p2"><br></p>
-<p class="p1">const getWeekDays = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const today = new Date();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const dayOfWeek = today.getDay();</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const monday = new Date(today);</p>
-<p class="p1"><span class="Apple-converted-space">  </span>monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>return Array.from({ length: 7 }, (_, i) =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>const d = new Date(monday);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>d.setDate(monday.getDate() + i);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>return {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>date: d.getDate(),</p>
-<p class="p1"><span class="Apple-converted-space">      </span>completed: false,</p>
-<p class="p1"><span class="Apple-converted-space">      </span>isToday: d.toDateString() === today.toDateString(),</p>
-<p class="p1"><span class="Apple-converted-space">    </span>};</p>
-<p class="p1"><span class="Apple-converted-space">  </span>});</p>
-<p class="p1">};</p>
-<p class="p2"><br></p>
-<p class="p1">const Index = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">  </span>const weekDays = useMemo(() =&gt; getWeekDays(), []);</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>const handleCheckIn = () =&gt; {</p>
-<p class="p1"><span class="Apple-converted-space">    </span>toast.success("打卡成功！繼續保持 💪");</p>
-<p class="p1"><span class="Apple-converted-space">  </span>};</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>return (</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div className="max-w-md mx-auto min-h-screen bg-background relative flex flex-col"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;AppHeader /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;main className="flex-1 p-4 pb-32"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div className="flex flex-col space-y-2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;GreetingCard name="自律君" weeklyCheckins={0} rank="加油！動起來" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;WeeklySummary totalMinutes={0} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;HabitTracker title="練功" count={0} days={weekDays} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;HabitTracker title="五分鐘" count={0} days={weekDays} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;CheckInButton onClick={handleCheckIn} /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/main&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;BottomNav /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>);</p>
-<p class="p1">};</p>
-<p class="p2"><br></p>
-<p class="p1">export default Index;</p>
+
+<div class="container">
+    <header>
+        <h1>每日智慧語錄<br><span style="font-size: 1.25rem; font-weight: 300; letter-spacing: 1px;">Maxims of Wisdom</span></h1>
+        <div class="header-sub">
+            日日省思 心成長躍進<br>
+            走過愛與和平的足跡<br>
+            傳送世界光明與希望
+        </div>
+    </header>
+
+    <div class="ritual-container" id="ritualContainer">
+        <div class="pixel-art-container" id="pixelArtContainer">
+            <div class="pixel-heart" id="pixelHeart"></div>
+        </div>
+        <div class="instruction-text" id="instructionText">
+            在開始新的一天前，<br>讓心靈沉靜下來。
+        </div>
+        <button class="ritual-btn" id="startRitualBtn" onclick="startRitual()">開始 10 秒靜心儀式</button>
+        <button class="draw-btn" id="drawBtn" onclick="drawQuote()" style="display: none;">抽取今日指引</button>
+    </div>
+
+    <div class="card-container" id="cardContainer">
+        <div class="card" id="quoteCard" onclick="flipCard()">
+            <div class="card-face card-front">
+                <div class="card-front-inner">
+                    <h3>智慧指引</h3>
+                    <p>點擊翻開卡片</p>
+                </div>
+            </div>
+            <div class="card-face card-back">
+                <div></div> <div>
+                    <div class="quote-ch" id="quoteCh">語錄載入中...</div>
+                    <div class="quote-en" id="quoteEn">Loading...</div>
+                </div>
+                <div class="card-footer" id="quoteIndex">
+                    智慧語錄
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="blessing-text" id="blessingText">
+        祝福你 天天新生<br>迎向生命心氣象
+    </div>
+
+    <div class="actions" id="actionArea">
+        <button class="ritual-btn btn-secondary" onclick="resetAll()">再次靜心抽籤</button>
+    </div>
+</div>
+
+<script>
+    // 31則智慧語錄數據
+    const quotes = [
+        { 
+            ch: "氣是人生命的根源，<br>人體健康的根本。", 
+            en: "Qi is the source of life<br>and the foundation of health." 
+        },
+        { 
+            ch: "看看鏡中的自己，<br>多對自己微笑打氣，<br>告訴自己加油。", 
+            en: "Look in the mirror, smile, cheer yourself on,<br>and say to yourself, \"You've got this!<br>Go for it!\"" 
+        },
+        { 
+            ch: "每天告訴自己：我是健康的、<br>快樂的、美麗的、有自信的。", 
+            en: "Every day, tell yourself:<br>I am healthy, happy, beautiful,<br>and confident." 
+        },
+        { 
+            ch: "要真正的去改變自己的一切，<br>這一切就是一個「圓」與「緣」。", 
+            en: "Let us transform ourselves fully and authentically,<br>it's about \"wholeness\" and the invisible bonds<br>that connect us all." 
+        },
+        { 
+            ch: "立下目標與願力，<br>心動就要行動，<br>才能減少遺憾。", 
+            en: "Set your goals and action plans.<br>When an idea or feeling arises in your heart,<br>act on it without delay, this is the way<br>to minimize regrets." 
+        },
+        { 
+            ch: "智者，日知也。<br>透過日日的反省與修改，<br>日復一日累積而成。", 
+            en: "The wise embrace learning every day;<br>through daily reflection and continuous improvement,<br>wisdom deepens and strengthens over time." 
+        },
+        { 
+            ch: "凡事做最好的準備，<br>接納一切的結果，<br>心的從容由此而來。", 
+            en: "Prepare as best you can,<br>accept whatever comes, and inner ease<br>and poise will naturally follow." 
+        },
+        { 
+            ch: "把握可以改變的，<br>放下不能改變的，<br>全力以赴，盡其在我。", 
+            en: "Focus on what you can change,<br>let go of what you cannot, and give your all,<br>do your best!" 
+        },
+        { 
+            ch: "感謝逆境，給予砥礪自己的機會，<br>只要不放棄，就可看出自己的潛能。", 
+            en: "Let us be grateful for adversity, it sharpens us.<br>As long as we don't give up,<br>we can unlock our true potential." 
+        },
+        { 
+            ch: "生活有高低起伏，不會事事皆如己意，<br>這是考驗也是磨練，<br>在過程中看見自己、改變自己。", 
+            en: "Life has its ups and downs;<br>things won't always go our way.<br>Challenges test and refine us, revealing<br>who we are and driving our growth." 
+        },
+        { 
+            ch: "找到自己最害怕的弱點，勇敢面對，<br>再大的困難，若心有意則無難。", 
+            en: "Let us face our greatest fears and weaknesses<br>with courage. With strong determination,<br>no challenge is insurmountable." 
+        },
+        { 
+            ch: "對的事情，每日一點一滴的累積，<br>信心、耐心與恆心，終能開花結果。", 
+            en: "Let us do what is right every day<br>and let it accumulate over time.<br>With confidence, patience, and perseverance,<br>our efforts will eventually bear fruit." 
+        },
+        { 
+            ch: "人赤裸裸來到世界，赤裸裸地走。<br>一個人最重要的向內求，<br>認識自己，了解自己。", 
+            en: "We enter the world bare and leave bare.<br>The most important journey is the inward one,<br>to know and understand ourselves." 
+        },
+        { 
+            ch: "逆境讓我們不凡，<br>人生中的變化讓我們學會<br>接受、寬容、彈性。", 
+            en: "Adversity makes us extraordinary.<br>Life's changes teach us acceptance,<br>tolerance, and flexibility." 
+        },
+        { 
+            ch: "壓力是毒藥，<br>由心而生的歡喜、自然與感恩<br>就是解藥。", 
+            en: "Pressure is poison, while joy, naturalness,<br>and gratitude that come from our hearts<br>are the antidote." 
+        },
+        { 
+            ch: "跟自己和解，平息內心的戰火，<br>在和平的狀態中，才有往前的正能量。", 
+            en: "Let us make peace with ourselves<br>and extinguish inner conflict.<br>When at peace, we gain the positive energy<br>to move forward." 
+        },
+        { 
+            ch: "人生舞台變化無窮，<br>只有吃苦做最沒有自信的事，<br>徹底執行才會成功。", 
+            en: "Life's stage is ever-changing.<br>True success comes from taking on the tasks<br>we feel least confident about and seeing them through<br>to completion with full commitment." 
+        },
+        { 
+            ch: "人的一生中能為自己做的機會有限，<br>把握每一次當下，勇敢面對自己，<br>省悟自己、改進自己。", 
+            en: "Opportunities to truly do things for oneself<br>are limited in life. Seize each one to face<br>yourself courageously, reflect deeply,<br>and improve yourself." 
+        },
+        { 
+            ch: "一個人的「心」，<br>決定了一切事物的樣貌。", 
+            en: "One's \"heart\" shapes everything in life." 
+        },
+        { 
+            ch: "心有生命，<br>看好的，想好的，說好的，<br>提高心的免疫力。", 
+            en: "The heart has its own life.<br>Look on the bright side of things, think positively,<br>and speak kindly to strengthen the resilience<br>of your hearts and souls." 
+        },
+        { 
+            ch: "人生在世，遇到的人與事，都是緣分，<br>如何面對這個緣分，是你的選擇。", 
+            en: "Everyone and everything we meet in life<br>is not a coincidence, how we respond<br>is our choice." 
+        },
+        { 
+            ch: "世界上的人千百種，<br>這些人都是幫助你成長的，<br>也是你生命的過客。", 
+            en: "There are all kinds of people in the world,<br>they help us grow and are transient<br>in our lives." 
+        },
+        { 
+            ch: "人與人之間的相處，和氣，<br>自然會順利。", 
+            en: "When interactions are harmonious,<br>relationships naturally flow with ease<br>and vitality." 
+        },
+        { 
+            ch: "練一份處變不驚的平靜態度，<br>遇事不要慌張，沉著以對，方可保平安。", 
+            en: "Let us cultivate calmness amid life's changes,<br>meeting each challenge with composure<br>to uphold safety and peace." 
+        },
+        { 
+            ch: "人生苦短，轉瞬即逝，無常即是常，<br>惜取眼前人，以善心正念對待。", 
+            en: "Life is short, challenging and fleeting,<br>and impermanence is ever-present.<br>Let us cherish those around us, embracing them<br>with kindness and a heart full of positive thoughts." 
+        },
+        { 
+            ch: "不問前塵往事，只問自己：<br>當下、今後，要如何向善、向好。", 
+            en: "Release the past, focus on the present<br>and the future, live virtuously,<br>and keep bettering yourself." 
+        },
+        { 
+            ch: "保持安靜與判斷是非的能力，<br>有善良的心，也要懂得防範惡的人事物。", 
+            en: "Stay calm and cultivate the ability to distinguish<br>between right and wrong. Keep a kind heart,<br>but remain vigilant of harmful people,<br>things and situations." 
+        },
+        { 
+            ch: "讓自己維持恆定能量與前進的步調，<br>保有適度的彈性。", 
+            en: "Keep your energy steady and continue<br>moving forward, while maintaining flexibility." 
+        },
+        { 
+            ch: "守氣氣定神閒，守心心靜安寧，<br>守身體健康，守外行為說話。", 
+            en: "Let us guard our qi to remain calm and at ease,<br>guard our hearts to stay serene, safe, and peaceful,<br>guard our bodies to maintain good health,<br>and guard our actions and words." 
+        },
+        { 
+            ch: "肯定自己生而為人的價值，重視自己，<br>發揮天賦專長，完成使命。", 
+            en: "Let us affirm our worth as human beings,<br>respect ourselves, cultivate our innate gifts<br>and skills, and fulfill the missions of our lives." 
+        },
+        { 
+            ch: "修行人讓境由心生，能夠內觀自在，<br>越能享有心的自由。", 
+            en: "Self-cultivation practitioners allow their state of mind<br>to shape their perception of the world. The more they<br>observe within and cultivate inner peace,<br>the more they experience true inner freedom." 
+        }
+    ];
+
+    const pixelContainer = document.getElementById('pixelArtContainer');
+    const pixelHeart = document.getElementById('pixelHeart');
+    const instruction = document.getElementById('instructionText');
+    const startBtn = document.getElementById('startRitualBtn');
+    const drawBtn = document.getElementById('drawBtn');
+    const cardContainer = document.getElementById('cardContainer');
+    const quoteCard = document.getElementById('quoteCard');
+    const ritualContainer = document.getElementById('ritualContainer');
+    const actionArea = document.getElementById('actionArea');
+    const blessingText = document.getElementById('blessingText');
+
+    // 啟動靜心儀式
+    function startRitual() {
+        startBtn.style.display = 'none';
+        pixelContainer.classList.add('breathing');
+        
+        let seconds = 10;
+        instruction.innerHTML = `閉上雙眼，深呼吸...<br>(還剩 ${seconds} 秒)`;
+        
+        const countdown = setInterval(() => {
+            seconds--;
+            if (seconds > 5) {
+                instruction.innerHTML = `緩緩吸氣，感受宇宙能量...<br>(還剩 ${seconds} 秒)`;
+            } else if (seconds > 0) {
+                instruction.innerHTML = `慢慢呼氣，放下塵世雜念...<br>(還剩 ${seconds} 秒)`;
+            } else {
+                clearInterval(countdown);
+                pixelContainer.classList.remove('breathing');
+                pixelHeart.classList.add('enlightened'); // 靜心完主體轉為深藍灰亮起
+                instruction.innerHTML = "心靈已歸於平靜，<br>請抽取今天的智慧指引。";
+                drawBtn.style.display = 'inline-block';
+            }
+        }, 1000);
+    }
+
+    // 抽籤
+    function drawQuote() {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        const selectedQuote = quotes[randomIndex];
+
+        document.getElementById('quoteCh').innerHTML = selectedQuote.ch;
+        document.getElementById('quoteEn').innerHTML = selectedQuote.en;
+        document.getElementById('quoteIndex').textContent = `Maxims of Wisdom ・ 第 ${randomIndex + 1} 則`;
+
+        ritualContainer.style.display = 'none';
+        cardContainer.style.display = 'block';
+        
+        setTimeout(() => {
+            flipCard();
+        }, 500);
+    }
+
+    function flipCard() {
+        quoteCard.classList.add('flipped');
+        
+        setTimeout(() => {
+            blessingText.style.display = 'block';
+            actionArea.style.display = 'flex';
+        }, 500);
+    }
+
+    function resetAll() {
+        quoteCard.classList.remove('flipped');
+        cardContainer.style.display = 'none';
+        actionArea.style.display = 'none';
+        blessingText.style.display = 'none';
+        
+        ritualContainer.style.display = 'block';
+        startBtn.style.display = 'inline-block';
+        drawBtn.style.display = 'none';
+        pixelHeart.classList.remove('enlightened');
+        instruction.innerHTML = "在開始新的一天前，<br>讓心靈沉靜下來。";
+    }
+</script>
+
 </body>
 </html>
