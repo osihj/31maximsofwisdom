@@ -70,7 +70,7 @@
             transition: all 0.5s ease;
         }
 
-        /* 像素圖案外容器 */
+        /* 像素圖案外容器 (360px x 360px) */
         .pixel-art-container {
             width: 360px;
             height: 360px;
@@ -79,37 +79,43 @@
             justify-content: center;
             align-items: center;
             position: relative;
-            overflow: hidden; /* 防止放大動畫產生滾動條 */
+            overflow: hidden; /* 防止極端縮放產生多餘滾動條 */
         }
 
-        /* 呼吸動畫 - 直接套用在包含 3 倍縮放與精密位移修正的狀態上 */
+        /* 呼吸動畫 - 縮小一倍後的基準縮放（1.3倍 ~ 1.7倍之間呼吸）並鎖定幾何置中偏移 */
         .breathing {
             animation: breathe 8s infinite ease-in-out;
         }
 
         @keyframes breathe {
-            0%, 100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0.85; }
-            50% { transform: translate(-50%, -50%) scale(3.3); opacity: 1; }
+            0%, 100% { 
+                transform: translate(calc(-50% - 4px), calc(-50% - 24px)) scale(1.3); 
+                opacity: 0.85; 
+            }
+            50% { 
+                transform: translate(calc(-50% - 4px), calc(-50% - 24px)) scale(1.7); 
+                opacity: 1; 
+            }
         }
 
-        /* 完美置中與精密偏移修正（15x13像素坐標原點補償：X軸向右移動4px，Y軸向下移動24px） */
+        /* 精密置中像素愛心 - 比例縮減一倍（scale(1.5)），在手機與桌機上均能完全置中 */
         .pixel-heart {
             position: absolute;
             left: 50%;
             top: 50%;
-            /* translate 第一和第二個參數負責完全拉回正中央與做微小的像素幾何重心修正 */
-            transform: translate(-50%, -50%) scale(3);
+            /* translate 完美修正 15x13 像素繪圖原點的偏移，使幾何中心完全鎖定在正中央 */
+            transform: translate(calc(-50% - 4px), calc(-50% - 24px)) scale(1.5);
             transform-origin: center center;
             
             width: 8px;
             height: 8px;
             background: transparent;
             
-            /* 防止瀏覽器在縮放像素時變模糊，確保像素邊緣清晰 */
+            /* 防止瀏覽器縮放像素時邊緣模糊，保留純淨的 8-bit 質感 */
             image-rendering: pixelated;
             image-rendering: crisp-edges;
 
-            /* 15 col x 13 row 像素坐標繪製系統 (基礎 8px 坐標，幾何中心已由 CSS 完美中和) */
+            /* 15 col x 13 row 像素坐標繪製系統 */
             box-shadow: 
                 /* Row 1 */
                 -24px -48px var(--heart-border), -16px -48px var(--heart-border), -8px -48px var(--heart-border),
@@ -520,7 +526,7 @@
     // 啟動靜心儀式
     function startRitual() {
         startBtn.style.display = 'none';
-        pixelHeart.classList.add('breathing'); // 讓心形套用完美的呼吸動畫
+        pixelHeart.classList.add('breathing'); // 讓心形套用含有完美置中修正與縮小的呼吸動畫
         
         let seconds = 10;
         instruction.innerHTML = `閉上雙眼，深呼吸...<br>(還剩 ${seconds} 秒)`;
