@@ -1,585 +1,315 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>每日智慧語錄 Maxims of Wisdom</title>
+    <title>練陣前身心儀式</title>
     <style>
         :root {
-            --primary-color: #6d7993;
-            --secondary-color: #9099a8;
-            --bg-color: #f4f3f0;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --accent-color: #bfa38a;
-            
-            /* 微縮像素愛心配色 */
-            --heart-border: #6d7993;  /* 外框：深藍灰色 */
-            --heart-fill: #d36a72;    /* 填充：質感頁面紅色系 */
-            --heart-white: #ffffff;   /* 高光：純白色 */
+            --pogo-blue: #2EB9E6;
+            --pogo-teal: #42F5E6;
+            --pogo-green: #38D3A0;
+            --pogo-red: #FF3847;
+            --pogo-red-dark: #C62828;
+            --pogo-dark: #2C3E50;
+            --pogo-white: rgba(255, 255, 255, 0.95);
+            --pogo-yellow: #FFCE00;
+            --pogo-gray: #607D8B;
         }
 
         body {
-            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
+            font-family: "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+            background: linear-gradient(180deg, var(--pogo-blue) 0%, var(--pogo-teal) 100%);
+            color: var(--pogo-dark);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: radial-gradient(rgba(191, 163, 138, 0.1) 1px, transparent 0);
-            background-size: 24px 24px;
+            margin: 0;
+            padding: 15px;
+            letter-spacing: 0.02em;
         }
 
-        .container {
+        .pogo-container {
+            background: var(--pogo-white);
+            border-radius: 40px;
+            padding: 40px 20px;
+            max-width: 460px;
             width: 100%;
-            max-width: 520px; /* 完美寬幅 */
-            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            text-align: center;
+            border-bottom: 10px solid rgba(0, 0, 0, 0.08);
             box-sizing: border-box;
+        }
+
+        header h2 { font-weight: 600; font-size: 1.7rem; margin: 0; }
+        header .line { width: 40px; height: 1px; background: #B8977E; margin: 15px auto; }
+        header p { font-size: 0.95rem; color: #7F8C8D; margin: 0 0 35px 0; }
+
+        .section { text-align: left; margin-bottom: 30px; }
+
+        .check-item {
+            display: flex;
+            align-items: flex-start;
+            background: white;
+            margin-bottom: 12px;
+            padding: 16px 18px;
+            border-radius: 25px;
+            font-size: 1.05rem;
+            line-height: 1.4;
+            cursor: pointer;
+            box-shadow: 0 4px 0px rgba(0,0,0,0.05);
+        }
+
+        input[type="checkbox"] {
+            appearance: none;
+            width: 20px; height: 20px;
+            border: 2px solid #BBB;
+            border-radius: 50%;
+            margin-right: 12px;
+            margin-top: 2px;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        input[type="checkbox"]:checked { background: var(--pogo-green); border-color: var(--pogo-green); }
+        input[type="checkbox"]:checked::after {
+            content: "✓"; color: white; font-size: 12px; position: absolute; left: 4px; top: 0px;
+        }
+
+        .star-box { background: rgba(255, 255, 255, 0.5); border-radius: 30px; padding: 20px; margin-bottom: 25px; }
+        .status-label { font-size: 1rem; font-weight: 600; color: #B8977E; display: block; margin-bottom: 10px; }
+        
+        .star-rating { display: flex; flex-direction: row-reverse; justify-content: center; gap: 10px; }
+        .star-rating input { display: none; }
+        .star-rating label { font-size: 32px; color: #E8E8E8; cursor: pointer; }
+        .star-rating input:checked ~ label { color: var(--pogo-yellow); }
+
+        .btn {
+            background-color: var(--pogo-red);
+            color: white;
+            border: none;
+            padding: 18px;
+            width: 100%;
+            border-radius: 100px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 6px 0px var(--pogo-red-dark);
+            letter-spacing: 0.2em;
+            transition: transform 0.1s;
+        }
+
+        .btn:active { transform: translateY(4px); box-shadow: 0 2px 0px var(--pogo-red-dark); }
+
+        .btn-wisdom {
+            background: linear-gradient(90deg, #42F5E6, #2EB9E6);
+            margin-top: 25px;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 0px #2598bd;
+            display: none;
+        }
+
+        #result-area, #wisdom-area {
+            margin-top: 30px;
+            padding: 30px 15px;
+            border-radius: 35px;
+            background: white;
+            display: none;
+            animation: pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
         }
 
-        header h1 {
-            font-weight: 500;
-            color: var(--primary-color);
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            font-size: 1.7rem;
+        #wisdom-area {
+            background: linear-gradient(180deg, #ffffff 0%, #f4f8f9 100%);
+            border-top: 8px solid var(--pogo-teal);
         }
 
-        /* 中間標示：分行顯示 */
-        .header-sub {
-            color: var(--secondary-color);
-            font-size: 0.95rem;
+        .score-label { font-size: 0.85rem; color: #7F8C8D; display: block; margin-bottom: 5px; }
+        .score-display { font-size: 3.5rem; font-weight: 800; color: var(--pogo-red); display: block; margin-bottom: 15px; }
+
+        .feedback-title { 
+            display: block; 
+            font-size: 1.3rem; 
+            font-weight: 800; 
+            margin-bottom: 12px; 
+        }
+        .feedback-desc { 
+            display: block; 
+            font-size: 1rem; 
+            line-height: 1.8; 
+            color: #5D6D7E; 
+            max-width: 90%; 
+            margin: 0 auto;
+        }
+
+        .wisdom-text {
+            font-size: 1.25rem;
+            font-weight: 800;
             line-height: 1.8;
-            margin-top: 0;
-            margin-bottom: 25px;
-            letter-spacing: 3px;
-            font-weight: 400;
-        }
-
-        /* 靜心儀式區 */
-        .ritual-container {
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            padding: 35px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-            transition: all 0.5s ease;
-        }
-
-        /* 像素圖案外容器：Grid 佈局，強制內部元素絕對物理置中 */
-        .pixel-art-container {
-            width: 100%;
-            height: 160px; /* 縮減多餘高度，讓版面在手機上更精緻貼合 */
-            margin: 0 auto 25px auto;
-            display: grid;
-            place-items: center;
-            position: relative;
-        }
-
-        /* 呼吸動畫 - 基於物理置中（不再使用 translate 偏移），單純控制 scale 縮放 */
-        .breathing {
-            animation: breathe 8s infinite ease-in-out;
-        }
-
-        @keyframes breathe {
-            0%, 100% { 
-                transform: scale(1.3); 
-                opacity: 0.85; 
-            }
-            50% { 
-                transform: scale(1.7); 
-                opacity: 1; 
-            }
-        }
-
-        /* 完美對齊主標的像素愛心 */
-        .pixel-heart {
-            /* 移除 absolute 定位，成為 Grid 內部標準塊級元素，自動與標題中線完美對齊 */
-            display: block;
-            transform: scale(1.5);
-            transform-origin: center center;
-            
-            width: 8px;
-            height: 8px;
-            background: transparent;
-            
-            /* 防止瀏覽器縮放像素時邊緣模糊，保留純淨的 8-bit 質感 */
-            image-rendering: pixelated;
-            image-rendering: crisp-edges;
-
-            /* 15 col x 13 row 像素坐標繪製系統 */
-            box-shadow: 
-                /* Row 1 */
-                -24px -48px var(--heart-border), -16px -48px var(--heart-border), -8px -48px var(--heart-border),
-                8px -48px var(--heart-border), 16px -48px var(--heart-border), 24px -48px var(--heart-border),
-                /* Row 2 */
-                -32px -40px var(--heart-border), -24px -40px var(--heart-fill), -16px -40px var(--heart-fill), -8px -40px var(--heart-fill),
-                0px -40px var(--heart-border),
-                8px -40px var(--heart-fill), 16px -40px var(--heart-fill), 24px -40px var(--heart-fill), 32px -40px var(--heart-border),
-                /* Row 3 */
-                -40px -32px var(--heart-border), -32px -32px var(--heart-fill), -24px -32px var(--heart-fill), -16px -32px var(--heart-fill), -8px -32px var(--heart-fill),
-                0px -32px var(--heart-fill), 8px -32px var(--heart-fill), 16px -32px var(--heart-fill), 24px -32px var(--heart-fill), 32px -32px var(--heart-fill), 40px -32px var(--heart-border),
-                /* Row 4 (高光點 1) */
-                -48px -24px var(--heart-border), -40px -24px var(--heart-fill), -32px -24px var(--heart-white), -24px -24px var(--heart-fill), -16px -24px var(--heart-fill), -8px -24px var(--heart-fill),
-                0px -24px var(--heart-fill), 8px -24px var(--heart-fill), 16px -24px var(--heart-fill), 24px -24px var(--heart-fill), 32px -24px var(--heart-fill), 40px -24px var(--heart-fill), 48px -24px var(--heart-border),
-                /* Row 5 (高光點 2) */
-                -48px -16px var(--heart-border), -40px -16px var(--heart-fill), -32px -16px var(--heart-fill), -24px -16px var(--heart-white), -16px -16px var(--heart-fill), -8px -16px var(--heart-fill),
-                0px -16px var(--heart-fill), 8px -16px var(--heart-fill), 16px -16px var(--heart-fill), 24px -16px var(--heart-fill), 32px -16px var(--heart-fill), 40px -16px var(--heart-fill), 48px -16px var(--heart-border),
-                /* Row 6 */
-                -48px -8px var(--heart-border), -40px -8px var(--heart-fill), -32px -8px var(--heart-fill), -24px -8px var(--heart-fill), -16px -8px var(--heart-fill), -8px -8px var(--heart-fill),
-                0px -8px var(--heart-fill), 8px -8px var(--heart-fill), 16px -8px var(--heart-fill), 24px -8px var(--heart-fill), 32px -8px var(--heart-fill), 40px -8px var(--heart-fill), 48px -8px var(--heart-border),
-                /* Row 7 */
-                -48px 0px var(--heart-border), -40px 0px var(--heart-fill), -32px 0px var(--heart-fill), -24px 0px var(--heart-fill), -16px 0px var(--heart-fill), -8px 0px var(--heart-fill),
-                0px 0px var(--heart-fill), 8px 0px var(--heart-fill), 16px 0px var(--heart-fill), 24px 0px var(--heart-fill), 32px 0px var(--heart-fill), 40px 0px var(--heart-fill), 48px 0px var(--heart-border),
-                /* Row 8 */
-                -40px 8px var(--heart-border), -32px 8px var(--heart-fill), -24px 8px var(--heart-fill), -16px 8px var(--heart-fill), -8px 8px var(--heart-fill),
-                0px 8px var(--heart-fill), 8px 8px var(--heart-fill), 16px 8px var(--heart-fill), 24px 8px var(--heart-fill), 32px 8px var(--heart-fill), 40px 8px var(--heart-border),
-                /* Row 9 */
-                -32px 16px var(--heart-border), -24px 16px var(--heart-fill), -16px 16px var(--heart-fill), -8px 16px var(--heart-fill),
-                0px 16px var(--heart-fill), 8px 16px var(--heart-fill), 16px 16px var(--heart-fill), 24px 16px var(--heart-fill), 32px 16px var(--heart-border),
-                /* Row 10 */
-                -24px 24px var(--heart-border), -16px 24px var(--heart-fill), -8px 24px var(--heart-fill),
-                0px 24px var(--heart-fill), 8px 24px var(--heart-fill), 16px 24px var(--heart-fill), 24px 24px var(--heart-border),
-                /* Row 11 */
-                -16px 32px var(--heart-border), -8px 32px var(--heart-fill),
-                0px 32px var(--heart-fill), 8px 32px var(--heart-fill), 16px 32px var(--heart-border),
-                /* Row 12 */
-                -8px 40px var(--heart-border), 0px 40px var(--heart-fill), 8px 40px var(--heart-border),
-                /* Row 13 */
-                0px 48px var(--heart-border);
-            
-            transition: transform 0.3s ease, filter 0.5s ease;
-        }
-
-        /* 靜心完成後：愛心主體變更為網頁主色（深藍灰色），並釋放柔和光芒 */
-        .pixel-heart.enlightened {
-            --heart-fill: var(--primary-color);
-            filter: drop-shadow(0 0 15px rgba(109, 121, 147, 0.6));
-        }
-
-        .ritual-btn, .draw-btn {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 12px 35px;
-            font-size: 1rem;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(109, 121, 147, 0.2);
-        }
-
-        .ritual-btn:hover, .draw-btn:hover {
-            background-color: var(--accent-color);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(191, 163, 138, 0.3);
-        }
-
-        .instruction-text {
-            font-size: 1.05rem;
-            margin-bottom: 25px;
-            color: #555;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            line-height: 1.5;
-        }
-
-        /* 籤卡樣式 */
-        .card-container {
-            perspective: 1000px;
-            display: none;
-            margin-top: 15px;
-        }
-
-        .card {
-            width: 100%;
-            min-height: 350px;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-        }
-
-        .card.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-            padding: 30px 24px;
-        }
-
-        .card-front {
-            background-color: var(--primary-color);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .card-front-inner {
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card-front h3 {
-            font-weight: 300;
-            letter-spacing: 5px;
-            margin: 0;
-            font-size: 1.4rem;
-        }
-
-        .card-front p {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            margin-top: 10px;
-        }
-
-        .card-back {
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            transform: rotateY(180deg);
-            border-left: 5px solid var(--accent-color);
-            justify-content: space-between;
-        }
-
-        .quote-ch {
-            font-size: 1.15rem;
-            line-height: 1.8;
-            font-weight: 500;
-            color: #2c3e50;
-            margin-bottom: 18px;
-            word-break: break-all;
-        }
-
-        .quote-en {
-            font-size: 0.88rem;
-            line-height: 1.6;
-            color: #7f8c8d;
-            font-style: italic;
+            color: var(--pogo-dark);
+            margin: 25px 0;
+            padding: 10px 5px;
+            text-align: center;
             word-break: break-word;
-        }
-
-        .card-footer {
-            font-size: 0.78rem;
-            color: var(--secondary-color);
-            margin-top: 15px;
-            border-top: 1px dashed #eee;
-            width: 100%;
-            padding-top: 10px;
-        }
-
-        /* 結尾祝福文字 */
-        .blessing-text {
-            display: none;
-            font-size: 1.1rem;
-            color: #bfa38a;
-            margin-top: 25px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            line-height: 1.6;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .actions {
-            margin-top: 20px;
-            display: none;
-            gap: 15px;
+            display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 80px;
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            border: 1px solid var(--secondary-color);
-            color: var(--secondary-color);
-            box-shadow: none;
+        .close-circle {
+            width: 55px;
+            height: 55px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 25px auto 5px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            font-size: 22px;
+            color: var(--pogo-gray);
+            font-weight: bold;
         }
-        .btn-secondary:hover {
-            background-color: rgba(0,0,0,0.02);
-            color: var(--text-color);
-            border-color: var(--text-color);
-            box-shadow: none;
-        }
+
+        .close-circle:active { transform: scale(0.9); }
+
+        .urgent-alert { color: var(--pogo-red); }
+
+        @keyframes pop { 0% { transform: scale(0.85); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>每日智慧語錄<br><span style="font-size: 1.25rem; font-weight: 300; letter-spacing: 1px;">Maxims of Wisdom</span></h1>
-        <div class="header-sub">
-            日日省思 心成長躍進<br>
-            走過愛與和平的足跡<br>
-            傳送世界光明與希望
-        </div>
-    </header>
+<div class="pogo-container">
+    <div id="main-ritual">
+        <header>
+            <h2>練陣前身心儀式</h2>
+            <div class="line"></div>
+            <p>每一場震撼的鼓聲，始於內心的平靜</p>
+        </header>
 
-    <div class="ritual-container" id="ritualContainer">
-        <div class="pixel-art-container" id="pixelArtContainer">
-            <div class="pixel-heart" id="pixelHeart"></div>
+        <div class="section">
+            <label class="check-item"><input type="checkbox" class="task"> 已整理好情緒，不將私人情緒帶入練陣期間</label>
+            <label class="check-item"><input type="checkbox" class="task"> 具備守護團隊氣氛的自覺，互相鼓勵取代埋怨</label>
+            <label class="check-item"><input type="checkbox" class="task"> 保持專注，接受任何變化與調整</label>
+            <label class="check-item"><input type="checkbox" class="task"> 對自己有信心、耐心、恆心</label>
+            <label class="check-item"><input type="checkbox" class="task"> 接受任何動作調整，誠實面對自己</label>
         </div>
-        <div class="instruction-text" id="instructionText">
-            在開始新的一天前，<br>讓心靈沉靜下來。
-        </div>
-        <button class="ritual-btn" id="startRitualBtn" onclick="startRitual()">開始 10 秒靜心儀式</button>
-        <button class="draw-btn" id="drawBtn" onclick="drawQuote()" style="display: none;">抽取今日指引</button>
-    </div>
 
-    <div class="card-container" id="cardContainer">
-        <div class="card" id="quoteCard" onclick="flipCard()">
-            <div class="card-face card-front">
-                <div class="card-front-inner">
-                    <h3>智慧指引</h3>
-                    <p>點擊翻開卡片</p>
-                </div>
-            </div>
-            <div class="card-face card-back">
-                <div></div> <div>
-                    <div class="quote-ch" id="quoteCh">語錄載入中...</div>
-                    <div class="quote-en" id="quoteEn">Loading...</div>
-                </div>
-                <div class="card-footer" id="quoteIndex">
-                    智慧語錄
-                </div>
+        <div class="star-box">
+            <span class="status-label">準備好幾顆星面對今日</span>
+            <div class="star-rating">
+                <input type="radio" id="5-stars" name="rating" value="5"><label for="5-stars">★</label>
+                <input type="radio" id="4-stars" name="rating" value="4"><label for="4-stars">★</label>
+                <input type="radio" id="3-stars" name="rating" value="3"><label for="3-stars">★</label>
+                <input type="radio" id="2-stars" name="rating" value="2"><label for="2-stars">★</label>
+                <input type="radio" id="1-star" name="rating" value="1"><label for="1-star">★</label>
             </div>
         </div>
+
+        <button class="btn" onclick="showAnalysis()">擊鼓開始</button>
+
+        <div id="result-area">
+            <span class="score-label">今日身心備戰狀態</span>
+            <span class="score-display" id="total-score">0%</span>
+            <div id="feedback-content"></div>
+            <!-- 按鈕文字修改 -->
+            <button class="btn btn-wisdom" id="wisdom-trigger" onclick="drawWisdom()">領取今日語錄</button>
+        </div>
     </div>
 
-    <div class="blessing-text" id="blessingText">
-        祝福你 天天新生<br>迎向生命心氣象
-    </div>
-
-    <div class="actions" id="actionArea">
-        <button class="ritual-btn btn-secondary" onclick="resetAll()">再次靜心抽籤</button>
+    <!-- 語錄顯示區 -->
+    <div id="wisdom-area">
+        <!-- 彈出畫面標題修改 -->
+        <span class="score-label" style="letter-spacing: 0.3em; font-weight: 900; color: var(--pogo-blue);">今日語錄</span>
+        <div style="height: 1px; background: linear-gradient(90deg, transparent, #ddd, transparent); margin: 15px 0;"></div>
+        
+        <div class="wisdom-text" id="wisdom-display"></div>
+        
+        <p style="font-size: 0.8rem; color: #AAB; margin-top: 10px;">讓這份智慧與你的節奏同行</p>
+        
+        <div class="close-circle" onclick="resetRitual()">✕</div>
     </div>
 </div>
 
 <script>
-    // 31則經精密中文斷句優化後的智慧語錄數據
-    const quotes = [
-        { 
-            ch: "氣是人生命的根源，<br>也是人體健康的根本。", 
-            en: "Qi is the source of life<br>and the foundation of health." 
-        },
-        { 
-            ch: "看看鏡中的自己，<br>多對自己微笑打氣，<br>告訴自己：加油！", 
-            en: "Look in the mirror, smile, cheer yourself on,<br>and say to yourself, \"You've got this!<br>Go for it!\"" 
-        },
-        { 
-            ch: "每天告訴自己：<br>我是健康的、快樂的、<br>美麗的、有自信的。", 
-            en: "Every day, tell yourself:<br>I am healthy, happy, beautiful,<br>and confident." 
-        },
-        { 
-            ch: "要真正的去改變自己一切，<br>這一切就是一個「圓」與「緣」。", 
-            en: "Let us transform ourselves fully and authentically,<br>it's about \"wholeness\" and the invisible bonds<br>that connect us all." 
-        },
-        { 
-            ch: "立下目標與願力，<br>心動就要行動，<br>才能減少遺憾。", 
-            en: "Set your goals and action plans.<br>When an idea or feeling arises in your heart,<br>act on it without delay, this is the way<br>to minimize regrets." 
-        },
-        { 
-            ch: "智者，日知也。<br>透過日日的反省與修改，<br>日復一日累積而成。", 
-            en: "The wise embrace learning every day;<br>through daily reflection and continuous improvement,<br>wisdom deepens and strengthens over time." 
-        },
-        { 
-            ch: "凡事做最好的準備，<br>接納一切的結果，<br>心的從容由此而來。", 
-            en: "Prepare as best you can,<br>accept whatever comes, and inner ease<br>and poise will naturally follow." 
-        },
-        { 
-            ch: "把握可以改變的，<br>放下不能改變的，<br>全力以赴，盡其在我。", 
-            en: "Focus on what you can change,<br>let go of what you cannot, and give your all,<br>do your best!" 
-        },
-        { 
-            ch: "感謝逆境，<br>給予砥礪自己的機會，<br>只要不放棄，就可看出潛能。", 
-            en: "Let us be grateful for adversity, it sharpens us.<br>As long as we don't give up,<br>we can unlock our true potential." 
-        },
-        { 
-            ch: "生活有高低起伏，<br>不會事事皆如己意，<br>這是考驗，也是磨練，<br>在過程中看見、改變自己。", 
-            en: "Life has its ups and downs;<br>things won't always go our way.<br>Challenges test and refine us, revealing<br>who we are and driving our growth." 
-        },
-        { 
-            ch: "找到自己最害怕的弱點，<br>勇敢面對；<br>再大的困難，心有意則無難。", 
-            en: "Let us face our greatest fears and weaknesses<br>with courage. With strong determination,<br>no challenge is insurmountable." 
-        },
-        { 
-            ch: "對的事情，每日一點一滴累積，<br>信心、耐心與恆心，<br>終能開花結果。", 
-            en: "Let us do what is right every day<br>and let it accumulate over time.<br>With confidence, patience, and perseverance,<br>our efforts will eventually bear fruit." 
-        },
-        { 
-            ch: "人赤裸裸來到世界，<br>亦赤裸裸地走。<br>一個人最重要的向內求，<br>認識自己，了解自己。", 
-            en: "We enter the world bare and leave bare.<br>The most important journey is the inward one,<br>to know and understand ourselves." 
-        },
-        { 
-            ch: "逆境讓我們不凡，<br>人生中的變化讓我們學會<br>接受、寬容與彈性。", 
-            en: "Adversity makes us extraordinary.<br>Life's changes teach us acceptance,<br>tolerance, and flexibility." 
-        },
-        { 
-            ch: "壓力是毒藥，<br>由心而生的歡喜、<br>自然與感恩，就是解藥。", 
-            en: "Pressure is poison, while joy, naturalness,<br>and gratitude that come from our hearts<br>are the antidote." 
-        },
-        { 
-            ch: "跟自己和解，平息內心戰火，<br>在和平的狀態中，<br>才有往前的正能量。", 
-            en: "Let us make peace with ourselves<br>and extinguish inner conflict.<br>When at peace, we gain the positive energy<br>to move forward." 
-        },
-        { 
-            ch: "人生舞台變化無窮，<br>只有吃苦做最沒自信的事，<br>徹底執行，才會成功。", 
-            en: "Life's stage is ever-changing.<br>True success comes from taking on the tasks<br>we feel least confident about and seeing them through<br>to completion with full commitment." 
-        },
-        { 
-            ch: "人生中能為自己努力的機會有限，<br>把握當下，勇敢面對自己，<br>省悟自己、改進自己。", 
-            en: "Opportunities to truly do things for oneself<br>are limited in life. Seize each one to face<br>yourself courageously, reflect deeply,<br>and improve yourself." 
-        },
-        { 
-            ch: "一個人的「心」，<br>決定了一切事物的樣貌。", 
-            en: "One's \"heart\" shapes everything in life." 
-        },
-        { 
-            ch: "心有生命，<br>看好的，想好的，說好的，<br>提高心的免疫力。", 
-            en: "The heart has its own life.<br>Look on the bright side of things, think positively,<br>and speak kindly to strengthen the resilience<br>of your hearts and souls." 
-        },
-        { 
-            ch: "人生在世，遇到的所有人事，<br>都是緣分；<br>如何面對緣分，是你的選擇。", 
-            en: "Everyone and everything we meet in life<br>is not a coincidence, how we respond<br>is our choice." 
-        },
-        { 
-            ch: "世界上的人千百種，<br>這些人都是幫助你成長的，<br>也是你生命的過客。", 
-            en: "There are all kinds of people in the world,<br>they help us grow and are transient<br>in our lives." 
-        },
-        { 
-            ch: "人與人之間的相處，<br>保持和氣，自然會順利。", 
-            en: "When interactions are harmonious,<br>relationships naturally flow with ease<br>and vitality." 
-        },
-        { 
-            ch: "練一份處變不驚的平靜態度，<br>遇事沉著以對，不要慌張，<br>方可保平安。", 
-            en: "Let us cultivate calmness amid life's changes,<br>meeting each challenge with composure<br>to uphold safety and peace." 
-        },
-        { 
-            ch: "生命苦短，無常即是常，<br>惜取眼前人，<br>以善心正念對待。", 
-            en: "Life is short, challenging and fleeting,<br>and impermanence is ever-present.<br>Let us cherish those around us, embracing them<br>with kindness and a heart full of positive thoughts." 
-        },
-        { 
-            ch: "不問前塵往事，只問自己：<br>當下、今後，<br>要如何向善、向好。", 
-            en: "Release the past, focus on the present<br>and the future, live virtuously,<br>and keep bettering yourself." 
-        },
-        { 
-            ch: "保持安靜與判斷是非的能力，<br>有善良的心，<br>也要懂得防範惡的人事物。", 
-            en: "Stay calm and cultivate the ability to distinguish<br>between right and wrong. Keep a kind heart,<br>but remain vigilant of harmful people,<br>things and situations." 
-        },
-        { 
-            ch: "讓自己維持恆定能量，<br>以及前進的步調，<br>並保有適度的彈性。", 
-            en: "Keep your energy steady and continue<br>moving forward, while maintaining flexibility." 
-        },
-        { 
-            ch: "守氣氣定神閒，守心心靜安寧，<br>守身體健康，守外行為說話。", 
-            en: "Let us guard our qi to remain calm and at ease,<br>guard our hearts to stay serene, safe, and peaceful,<br>guard our bodies to maintain good health,<br>and guard our actions and words." 
-        },
-        { 
-            ch: "肯定自己生而為人的價值，<br>重視自己，發揮天賦專長，<br>完成使命。", 
-            en: "Let us affirm our worth as human beings,<br>respect ourselves, cultivate our innate gifts<br>and skills, and fulfill the missions of our lives." 
-        },
-        { 
-            ch: "修行人讓境由心生，<br>能夠內觀自在，<br>越能享有心的自由。", 
-            en: "Self-cultivation practitioners allow their state of mind<br>to shape their perception of the world. The more they<br>observe within and cultivate inner peace,<br>the more they experience true inner freedom." 
-        }
+    const wisdomQuotes = [
+        "鼓聲不僅是節奏，<br>更是你靈魂的跳動。",
+        "平靜的湖面才能映射出<br>最準確的月光。",
+        "真正的強大，是在混亂中<br>依然保有節奏。",
+        "每一擊都是新的開始，<br>不糾結於上一聲的失誤。",
+        "專注於當下這一響，<br>聲音自然會傳達到遠方。",
+        "與夥伴的呼吸同步，<br>那才是最強大的陣型。",
+        "心穩，手就穩；<br>意到，氣就到。",
+        "今日的汗水，<br>會化作舞台上最耀眼的光。"
     ];
 
-    const pixelHeart = document.getElementById('pixelHeart');
-    const instruction = document.getElementById('instructionText');
-    const startBtn = document.getElementById('startRitualBtn');
-    const drawBtn = document.getElementById('drawBtn');
-    const cardContainer = document.getElementById('cardContainer');
-    const quoteCard = document.getElementById('quoteCard');
-    const ritualContainer = document.getElementById('ritualContainer');
-    const actionArea = document.getElementById('actionArea');
-    const blessingText = document.getElementById('blessingText');
+    function showAnalysis() {
+        const checks = document.querySelectorAll('.task:checked').length;
+        const checkScore = checks * 12;
+        const starRating = document.querySelector('input[name="rating"]:checked')?.value || 0;
+        const starScore = starRating * 8;
+        const finalScore = checkScore + starScore;
 
-    // 啟動靜心儀式
-    function startRitual() {
-        startBtn.style.display = 'none';
-        pixelHeart.classList.add('breathing'); // 套用呼吸動畫（僅縮放）
+        const resultArea = document.getElementById('result-area');
+        const scoreDisplay = document.getElementById('total-score');
+        const feedbackContent = document.getElementById('feedback-content');
+        const wisdomBtn = document.getElementById('wisdom-trigger');
+
+        resultArea.style.display = 'block';
+        scoreDisplay.innerText = finalScore + '%';
+
+        let title, desc, isUrgent = false;
+
+        if (finalScore === 100) {
+            title = "巔峰狀態！";
+            desc = "身心已完全合一。今日的每一聲鼓響，都將震撼靈魂。";
+        } else if (finalScore >= 80) {
+            title = "最良狀態。";
+            desc = "內心平定，專注力飽滿。讓力量在鼓棒間流動。";
+        } else if (finalScore >= 50) {
+            title = "穩定進步。";
+            desc = "心境尚在調和。請先透過幾次深呼吸，找回身體與節奏的連結。";
+        } else if (finalScore >= 24) {
+            title = "警告：雜訊過多。";
+            desc = "目前的狀態較為浮躁。建議先放慢練習速度，將注意力收回到呼吸上。";
+        } else {
+            isUrgent = true;
+            title = "急需調整！";
+            desc = "當前狀態極不穩定。強行練習恐影響表現，請立即靜心五分鐘，排除雜念後再開始。";
+        }
+
+        feedbackContent.innerHTML = `
+            <span class="feedback-title ${isUrgent ? 'urgent-alert' : ''}">${title}</span>
+            <span class="feedback-desc">${desc}</span>
+        `;
         
-        let seconds = 10;
-        instruction.innerHTML = `閉上雙眼，深呼吸...<br>(還剩 ${seconds} 秒)`;
-        
-        const countdown = setInterval(() => {
-            seconds--;
-            if (seconds > 5) {
-                instruction.innerHTML = `緩緩吸氣，感受宇宙能量...<br>(還剩 ${seconds} 秒)`;
-            } else if (seconds > 0) {
-                instruction.innerHTML = `慢慢呼氣，放下塵世雜念...<br>(還剩 ${seconds} 秒)`;
-            } else {
-                clearInterval(countdown);
-                pixelHeart.classList.remove('breathing');
-                pixelHeart.classList.add('enlightened'); // 靜心完主體轉為深藍灰亮起
-                instruction.innerHTML = "心靈已歸於平靜，<br>請抽取今天的智慧指引。";
-                drawBtn.style.display = 'inline-block';
-            }
-        }, 1000);
-    }
-
-    // 抽籤
-    function drawQuote() {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        const selectedQuote = quotes[randomIndex];
-
-        document.getElementById('quoteCh').innerHTML = selectedQuote.ch;
-        document.getElementById('quoteEn').innerHTML = selectedQuote.en;
-        document.getElementById('quoteIndex').textContent = `Maxims of Wisdom ・ 第 ${randomIndex + 1} 則`;
-
-        ritualContainer.style.display = 'none';
-        cardContainer.style.display = 'block';
+        wisdomBtn.style.display = 'block';
         
         setTimeout(() => {
-            flipCard();
-        }, 500);
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
     }
 
-    function flipCard() {
-        quoteCard.classList.add('flipped');
+    function drawWisdom() {
+        const randomIndex = Math.floor(Math.random() * wisdomQuotes.length);
+        document.getElementById('wisdom-display').innerHTML = `「${wisdomQuotes[randomIndex]}」`;
         
-        setTimeout(() => {
-            blessingText.style.display = 'block';
-            actionArea.style.display = 'flex';
-        }, 500);
+        document.getElementById('main-ritual').style.display = 'none';
+        document.getElementById('wisdom-area').style.display = 'block';
+        window.scrollTo(0, 0);
     }
 
-    function resetAll() {
-        quoteCard.classList.remove('flipped');
-        cardContainer.style.display = 'none';
-        actionArea.style.display = 'none';
-        blessingText.style.display = 'none';
-        
-        ritualContainer.style.display = 'block';
-        startBtn.style.display = 'inline-block';
-        drawBtn.style.display = 'none';
-        pixelHeart.classList.remove('enlightened');
-        instruction.innerHTML = "在開始新的一天前，<br>讓心靈沉靜下來。";
+    function resetRitual() {
+        document.querySelectorAll('.task').forEach(c => c.checked = false);
+        document.querySelectorAll('input[name="rating"]').forEach(r => r.checked = false);
+        document.getElementById('result-area').style.display = 'none';
+        document.getElementById('wisdom-area').style.display = 'none';
+        document.getElementById('main-ritual').style.display = 'block';
+        window.scrollTo(0, 0);
     }
 </script>
 
